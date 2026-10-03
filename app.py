@@ -89,7 +89,7 @@ st.sidebar.markdown("---")
 st.sidebar.info("💡 **Executive Advisory:** Use these modules to benchmark labor efficiency, channel acquisition costs, and market share indices against luxury resort standards.")
 
 # ==========================================
-# MODULE 1: WORKFORCE & LABOR OPTIMIZATION
+# WORKFORCE & LABOR OPTIMIZATION
 # ==========================================
 if "1. Workforce" in module_selection:
     st.markdown("""
@@ -135,7 +135,7 @@ if "1. Workforce" in module_selection:
     m4.metric("REVPALH", f"${revpalh:.2f}", delta="Hourly Rev Productivity")
 
 # ==========================================
-# MODULE 2: REVENUE & NET REVPAR AUDIT
+# REVENUE & NET REVPAR AUDIT
 # ==========================================
 elif "2. Revenue" in module_selection:
     st.markdown("""
@@ -178,7 +178,7 @@ elif "2. Revenue" in module_selection:
     r4.metric("Net RevPAR", f"${net_revpar:.2f}", delta=f"Net ADR: ${net_adr:.2f}")
 
 # ==========================================
-# MODULE 3: COMPETITIVE & SCENARIO INDEXING
+# COMPETITIVE & SCENARIO INDEXING
 # ==========================================
 elif "3. Competitive" in module_selection:
     st.markdown("""
