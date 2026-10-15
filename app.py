@@ -45,6 +45,15 @@ st.markdown("""
         margin-bottom: 1.5rem;
         box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
+    .action-card {
+        background-color: #ffffff;
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid #cbd5e1;
+        border-left: 4px solid #0f172a;
+        margin-top: 1.5rem;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
     div[data-testid="stMetric"] {
         background-color: #ffffff;
         padding: 1rem 1.25rem;
@@ -92,19 +101,13 @@ if "1. Workforce" in module_selection:
         </div>
     """, unsafe_allow_html=True)
 
-    # --- DETAILED USER ACTION GUIDE ---
+    # --- TOP SETUP INSTRUCTION CARD ---
     st.markdown("""
         <div class="instruction-card">
-            <h4 style="margin-top:0; color:#0f172a;">📋 Executive User Action & Operational Guide</h4>
+            <h4 style="margin-top:0; color:#0f172a;">📋 Step 1: Input Operational & Payroll Parameters</h4>
             <p style="color:#334155; margin-bottom:0.75rem;">
-                As Assistant Operations Manager, your mission is to replace static guesswork and clipboards with <b>demand-driven scheduling</b>[cite: 8, 10]. Complete the following steps in this module:
+                Adjust the PMS operational inputs and HRIS payroll figures below to simulate your property's housekeeping department performance. Remember that departures drive labor workload, not occupancy alone[cite: 9].
             </p>
-            <ul style="color:#334155; margin-bottom:0;">
-                <li><b>Step 1: Input Operational Demand Signals.</b> Enter today's departures (full cleans) and stay-overs (light cleans) from your Property Management System (PMS)[cite: 8, 10]. Remember: <i>departures drive housekeeping workload</i>, not occupancy alone[cite: 9].</li>
-                <li><b>Step 2: Input Payroll & Labor Parameters.</b> Enter total departmental payroll hours logged in your HRIS/LMS, blended hourly rates, and total rooms revenue[cite: 8].</li>
-                <li><b>Step 3: Audit Executive KPIs against Benchmarks.</b> Compare your department's actual performance against luxury resort targets (<b>16.0% LPR ceiling</b>, <b>2.50 HPOR</b>, and <b>$130.00 REVPALH</b>)[cite: 11].</li>
-                <li><b>Step 4: Execute Labor Adjustments.</b> If calculated clean hours are lower than payroll hours logged, eliminate unbudgeted overtime by aligning shift schedules directly with the departure curve[cite: 10, 11].</li>
-            </ul>
         </div>
     """, unsafe_allow_html=True)
 
@@ -146,6 +149,33 @@ if "1. Workforce" in module_selection:
     m2.metric("HPOR (Hours / Occ. Room)", f"{hpor:.2f} hrs", delta="Benchmark Target: 2.50", delta_color="inverse")
     m3.metric("LPR (Labor Cost %)", f"{lpr:.1f}%", delta="Target Ceiling: 16.0%")
     m4.metric("REVPALH", f"${revpalh:.2f}", delta="Benchmark Target: $130.00")
+
+    # --- DETAILED EXPLANATION & ACTION PROTOCOL FOR THE DASHBOARD ---
+    st.markdown(f"""
+        <div class="action-card">
+            <h4 style="margin-top:0; color:#0f172a;">📊 How to Interpret & Act on This Dashboard</h4>
+            <p style="color:#334155; margin-bottom:0.75rem;">
+                Review your metric outputs above against the operational standards established at Aurora Mirage Resort:
+            </p>
+            <ul style="color:#334155; margin-bottom:1rem;">
+                <li><b>Calculated Clean Hours ({total_cleaning_hours:.1f} hrs) vs. Logged Payroll Hours ({payroll_hours} hrs):</b> 
+                    The difference represents your department's <i>operational friction</i> (supervision, setup, transit, and potential overstaffing or overtime waste). If logged hours significantly exceed calculated hours, adjust shift schedules to align with actual departure curves[cite: 10, 11].
+                </li>
+                <li><b>HPOR ({hpor:.2f} hrs/room):</b> 
+                    Measures total housekeeping payroll hours per occupied room. The luxury benchmark target is <b>2.50 hours</b>[cite: 11]. An HPOR above 2.50 signals inefficient scheduling or excessive non-cleaning hours.
+                </li>
+                <li><b>LPR ({lpr:.1f}%):</b> 
+                    Shows what percentage of room revenue goes straight to housekeeping payroll. The financial ceiling target is <b>16.0%</b>[cite: 11]. If your LPR is higher, payroll costs are eroding your operating margins.
+                </li>
+                <li><b>REVPALH (${revpalh:.2f}):</b> 
+                    Measures rooms revenue generated per available labor hour. The benchmark target is <b>$130.00</b>[cite: 11]. Lower productivity per hour indicates either soft room pricing or excess labor overhead.
+                </li>
+            </ul>
+            <p style="color:#0f172a; font-weight:600; margin-bottom:0;">
+                🎯 <b>Executive Decision Rule:</b> Do not schedule based on static occupancy or last month's calendar. Use departure forecasts and time standards to publish dynamic weekly rosters that eliminate unbudgeted overtime before compression hits[cite: 8, 10, 11].
+            </p>
+        </div>
+    """, unsafe_allow_html=True)
 
 # ==========================================
 # MODULE 2: CHANNEL MIX & NET REVPAR AUDIT
@@ -291,73 +321,4 @@ elif "5. Demand" in module_selection:
     st.markdown("""
         <div class="executive-header">
             <h1>Module 5: Demand Resilience, DRI & ACR</h1>
-            <p>Measure demand recapture without discounting using the Demand Redistribution Index (DRI) and Ancillary Capture Rate (ACR)[cite: 46].</p>
-        </div>
-    """, unsafe_allow_html=True)
-
-    col1, col2 = st.columns(2, gap="large")
-    with col1:
-        st.markdown("#### **Demand Redistribution Inputs**")
-        rooms_lost = st.number_input("Room-Nights Lost (Exposed Segment)", min_value=1, value=340)
-        rooms_recaptured = st.number_input("Room-Nights Recaptured (Alternate Segment)", min_value=0, value=207)
-
-    with col2:
-        st.markdown("#### **Ancillary Capture Rate Inputs**")
-        fnb_spa_rev = st.number_input("F&B + Spa + Ancillary Revenue ($)", min_value=0.0, value=460000.0, step=5000.0)
-        total_prop_rev = st.number_input("Total Property Revenue ($)", min_value=0.0, value=2150000.0, step=10000.0)
-
-    # Core Calculations based on Manuscript Formulas
-    # DRI = (Room-Nights Recaptured Elsewhere / Room-Nights Lost) * 100[cite: 46]
-    dri = (rooms_recaptured / rooms_lost) * 100 if rooms_lost > 0 else 0
-    
-    # ACR = ((F&B + Spa + Ancillary Rev) / Total Property Rev) * 100[cite: 46]
-    acr = (fnb_spa_rev / total_prop_rev) * 100 if total_prop_rev > 0 else 0
-
-    st.markdown("---")
-    st.markdown("### **Resilience & Wallet Share Dashboard**")
-
-    d1, d2 = st.columns(2)
-    d1.metric("DRI (Demand Redistribution Index)", f"{dri:.1f}%", delta="Recapture Performance vs Target > 60%")
-    d2.metric("ACR (Ancillary Capture Rate)", f"{acr:.1f}%", delta="Guest Wallet Share Cushion")
-
-# ==========================================
-# MODULE 6: PORTFOLIO SCORECARD & BOARDROOM STRATEGY
-# ==========================================
-elif "6. Portfolio" in module_selection:
-    st.markdown("""
-        <div class="executive-header">
-            <h1>Module 6: Portfolio Scorecard & Boardroom Strategy</h1>
-            <p>Audit multi-property performance using the GOPPAR gap benchmark and evaluate capital projects via ROI and payback[cite: 53, 54].</p>
-        </div>
-    """, unsafe_allow_html=True)
-
-    portfolio_data = pd.DataFrame({
-        "Property": ["Aurora Mirage (Las Vegas)", "Property B (Reno)", "Property C (Phoenix)", "Property D (San Diego)"],
-        "Actual GOPPAR ($)": [148.0, 121.0, 133.0, 156.0],
-        "Achievable GOPPAR ($)": [150.0, 138.0, 135.0, 158.0]
-    })
-    
-    portfolio_data["Gap ($)"] = portfolio_data["Actual GOPPAR ($)"] - portfolio_data["Achievable GOPPAR ($)"]
-
-    st.markdown("#### **Cross-Property Portfolio GOPPAR Gap Analysis**")
-    st.dataframe(portfolio_data, use_container_width=True)
-
-    fig = px.bar(
-        portfolio_data.melt(id_vars="Property", value_vars=["Actual GOPPAR ($)", "Achievable GOPPAR ($)"]),
-        x="Property",
-        y="value",
-        color="variable",
-        barmode="group",
-        title="Actual vs. Achievable GOPPAR by Property",
-        labels={"value": "GOPPAR ($)", "variable": "Metric"}
-    )
-    st.plotly_chart(fig, use_container_width=True)
-
-    st.markdown("#### **Capital Project ROI & Payback Ranking**")
-    capex_data = pd.DataFrame({
-        "Project": ["PMS Upgrade", "Direct-Booking Engine", "Solar + Efficiency", "Spa Expansion", "New Tower Wing"],
-        "3-Yr ROI (%)": [34, 28, 19, 14, 9],
-        "Payback Period (Years)": [0.8, 1.4, 3.2, 4.5, 7.8],
-        "Scope": ["All Properties", "All Properties", "Reno & Phoenix", "Aurora Mirage", "San Diego"]
-    })
-    st.dataframe(capex_data, use_container_width=True)
+            <p>Measure demand recapture without discounting using
