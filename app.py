@@ -36,6 +36,15 @@ st.markdown("""
         color: #94a3b8;
         font-size: 1.1rem;
     }
+    .instruction-card {
+        background-color: #ffffff;
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        border-left: 4px solid #3b82f6;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
     div[data-testid="stMetric"] {
         background-color: #ffffff;
         padding: 1rem 1.25rem;
@@ -60,7 +69,7 @@ st.sidebar.markdown("---")
 module_selection = st.sidebar.selectbox(
     "Choose Module / Tool",
     [
-        "1. Workforce & Labor Optimization (Module 1)",
+        "1. Workforce & Staffing Calculator (Module 1)",
         "2. Channel Mix & Net RevPAR Audit (Module 2)",
         "3. Competitive Indexing & Scenario Modeling (Module 3)",
         "4. AI Governance & GOPPAR Analytics (Module 4)",
@@ -79,22 +88,38 @@ if "1. Workforce" in module_selection:
     st.markdown("""
         <div class="executive-header">
             <h1>Module 1: Demand-Driven Housekeeping & Labor Optimization</h1>
-            <p>Calculate LPR, HPOR, and REVPALH based on departures-driven operational demand signals[cite: 8].</p>
+            <p>Calculate precise staffing requirements, HPOR, and labor cost ratios based on real-time property management signals[cite: 8].</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+    # --- DETAILED USER ACTION GUIDE ---
+    st.markdown("""
+        <div class="instruction-card">
+            <h4 style="margin-top:0; color:#0f172a;">📋 Executive User Action & Operational Guide</h4>
+            <p style="color:#334155; margin-bottom:0.75rem;">
+                As Assistant Operations Manager, your mission is to replace static guesswork and clipboards with <b>demand-driven scheduling</b>[cite: 8, 10]. Complete the following steps in this module:
+            </p>
+            <ul style="color:#334155; margin-bottom:0;">
+                <li><b>Step 1: Input Operational Demand Signals.</b> Enter today's departures (full cleans) and stay-overs (light cleans) from your Property Management System (PMS)[cite: 8, 10]. Remember: <i>departures drive housekeeping workload</i>, not occupancy alone[cite: 9].</li>
+                <li><b>Step 2: Input Payroll & Labor Parameters.</b> Enter total departmental payroll hours logged in your HRIS/LMS, blended hourly rates, and total rooms revenue[cite: 8].</li>
+                <li><b>Step 3: Audit Executive KPIs against Benchmarks.</b> Compare your department's actual performance against luxury resort targets (<b>16.0% LPR ceiling</b>, <b>2.50 HPOR</b>, and <b>$130.00 REVPALH</b>)[cite: 11].</li>
+                <li><b>Step 4: Execute Labor Adjustments.</b> If calculated clean hours are lower than payroll hours logged, eliminate unbudgeted overtime by aligning shift schedules directly with the departure curve[cite: 10, 11].</li>
+            </ul>
         </div>
     """, unsafe_allow_html=True)
 
     col1, col2 = st.columns(2, gap="large")
 
     with col1:
-        st.markdown("#### **Operational Demand Inputs**")
-        departures = st.number_input("Departures / Full Cleans", min_value=0, value=280, step=10)
+        st.markdown("#### **Operational Demand Inputs (PMS Signal)**")
+        departures = st.number_input("Departures / Full Cleans (30 mins std)", min_value=0, value=280, step=10)
         dep_minutes = st.number_input("Minutes per Departure Clean", min_value=0.0, value=30.0, step=2.5)
-        stayovers = st.number_input("Stay-overs / Light Cleans", min_value=0, value=120, step=10)
+        stayovers = st.number_input("Stay-overs / Light Cleans (15 mins std)", min_value=0, value=120, step=10)
         stay_minutes = st.number_input("Minutes per Stay-over Clean", min_value=0.0, value=15.0, step=1.0)
         occupied_rooms = st.number_input("Total Occupied Rooms (PMS)", min_value=1, value=361, step=5)
 
     with col2:
-        st.markdown("#### **Financial & Payroll Inputs**")
+        st.markdown("#### **Financial & Payroll Inputs (HRIS/PMS Signal)**")
         payroll_hours = st.number_input("Total Departmental Payroll Hours (LMS/HRIS)", min_value=0.0, value=1300.0, step=10.0)
         blended_rate = st.number_input("Blended Hourly Rate ($)", min_value=0.0, value=22.0, step=0.5)
         total_rooms_rev = st.number_input("Total Rooms Revenue ($)", min_value=0.0, value=140000.0, step=1000.0)
@@ -247,9 +272,8 @@ elif "4. AI Governance" in module_selection:
     # GOPPAR = Gross Operating Profit / Total Available Rooms[cite: 40]
     goppar = gross_op_profit / total_avail_rooms_m4 if total_avail_rooms_m4 > 0 else 0
     
-    # MAPE calculation component for single day / period error
     abs_error_pct = (abs(actual_demand - forecast_demand) / actual_demand) * 100 if actual_demand > 0 else 0
-    proposed_move_pct = abs_error_pct * 1.5  # Simulated model adjustment recommendation
+    proposed_move_pct = abs_error_pct * 1.5
 
     st.markdown("---")
     st.markdown("### **Governance & Profitability Dashboard**")
@@ -307,7 +331,6 @@ elif "6. Portfolio" in module_selection:
         </div>
     """, unsafe_allow_html=True)
 
-    # Multi-property DataFrame based on manuscript case study
     portfolio_data = pd.DataFrame({
         "Property": ["Aurora Mirage (Las Vegas)", "Property B (Reno)", "Property C (Phoenix)", "Property D (San Diego)"],
         "Actual GOPPAR ($)": [148.0, 121.0, 133.0, 156.0],
