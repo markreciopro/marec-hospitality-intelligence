@@ -321,4 +321,73 @@ elif "5. Demand" in module_selection:
     st.markdown("""
         <div class="executive-header">
             <h1>Module 5: Demand Resilience, DRI & ACR</h1>
-            <p>Measure demand recapture without discounting using
+            <p>Measure demand recapture without discounting using the Demand Redistribution Index (DRI) and Ancillary Capture Rate (ACR)[cite: 46].</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+    col1, col2 = st.columns(2, gap="large")
+    with col1:
+        st.markdown("#### **Demand Redistribution Inputs**")
+        rooms_lost = st.number_input("Room-Nights Lost (Exposed Segment)", min_value=1, value=340)
+        rooms_recaptured = st.number_input("Room-Nights Recaptured (Alternate Segment)", min_value=0, value=207)
+
+    with col2:
+        st.markdown("#### **Ancillary Capture Rate Inputs**")
+        fnb_spa_rev = st.number_input("F&B + Spa + Ancillary Revenue ($)", min_value=0.0, value=460000.0, step=5000.0)
+        total_prop_rev = st.number_input("Total Property Revenue ($)", min_value=0.0, value=2150000.0, step=10000.0)
+
+    # Core Calculations based on Manuscript Formulas
+    # DRI = (Room-Nights Recaptured Elsewhere / Room-Nights Lost) * 100[cite: 46]
+    dri = (rooms_recaptured / rooms_lost) * 100 if rooms_lost > 0 else 0
+    
+    # ACR = ((F&B + Spa + Ancillary Rev) / Total Property Rev) * 100[cite: 46]
+    acr = (fnb_spa_rev / total_prop_rev) * 100 if total_prop_rev > 0 else 0
+
+    st.markdown("---")
+    st.markdown("### **Resilience & Wallet Share Dashboard**")
+
+    d1, d2 = st.columns(2)
+    d1.metric("DRI (Demand Redistribution Index)", f"{dri:.1f}%", delta="Recapture Performance vs Target > 60%")
+    d2.metric("ACR (Ancillary Capture Rate)", f"{acr:.1f}%", delta="Guest Wallet Share Cushion")
+
+# ==========================================
+# MODULE 6: PORTFOLIO SCORECARD & BOARDROOM STRATEGY
+# ==========================================
+elif "6. Portfolio" in module_selection:
+    st.markdown("""
+        <div class="executive-header">
+            <h1>Module 6: Portfolio Scorecard & Boardroom Strategy</h1>
+            <p>Audit multi-property performance using the GOPPAR gap benchmark and evaluate capital projects via ROI and payback[cite: 53, 54].</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+    portfolio_data = pd.DataFrame({
+        "Property": ["Aurora Mirage (Las Vegas)", "Property B (Reno)", "Property C (Phoenix)", "Property D (San Diego)"],
+        "Actual GOPPAR ($)": [148.0, 121.0, 133.0, 156.0],
+        "Achievable GOPPAR ($)": [150.0, 138.0, 135.0, 158.0]
+    })
+    
+    portfolio_data["Gap ($)"] = portfolio_data["Actual GOPPAR ($)"] - portfolio_data["Achievable GOPPAR ($)"]
+
+    st.markdown("#### **Cross-Property Portfolio GOPPAR Gap Analysis**")
+    st.dataframe(portfolio_data, use_container_width=True)
+
+    fig = px.bar(
+        portfolio_data.melt(id_vars="Property", value_vars=["Actual GOPPAR ($)", "Achievable GOPPAR ($)"]),
+        x="Property",
+        y="value",
+        color="variable",
+        barmode="group",
+        title="Actual vs. Achievable GOPPAR by Property",
+        labels={"value": "GOPPAR ($)", "variable": "Metric"}
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.markdown("#### **Capital Project ROI & Payback Ranking**")
+    capex_data = pd.DataFrame({
+        "Project": ["PMS Upgrade", "Direct-Booking Engine", "Solar + Efficiency", "Spa Expansion", "New Tower Wing"],
+        "3-Yr ROI (%)": [34, 28, 19, 14, 9],
+        "Payback Period (Years)": [0.8, 1.4, 3.2, 4.5, 7.8],
+        "Scope": ["All Properties", "All Properties", "Reno & Phoenix", "Aurora Mirage", "San Diego"]
+    })
+    st.dataframe(capex_data, use_container_width=True)
