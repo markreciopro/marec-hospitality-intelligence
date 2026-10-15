@@ -10,66 +10,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- ADVANCED CUSTOM CSS STYLING ---
-st.markdown("""
-    <style>
-    .main {
-        background-color: #f1f5f9;
-        font-family: 'Inter', sans-serif;
-    }
-    .executive-header {
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        padding: 2.5rem;
-        border-radius: 16px;
-        color: white;
-        margin-bottom: 2rem;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        border-left: 6px solid #3b82f6;
-    }
-    .executive-header h1 {
-        color: #ffffff;
-        font-size: 2.2rem;
-        font-weight: 800;
-        margin-bottom: 0.5rem;
-    }
-    .executive-header p {
-        color: #94a3b8;
-        font-size: 1.1rem;
-    }
-    .instruction-card {
-        background-color: #ffffff;
-        padding: 1.5rem;
-        border-radius: 12px;
-        border: 1px solid #e2e8f0;
-        border-left: 4px solid #3b82f6;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    }
-    .action-card {
-        background-color: #ffffff;
-        padding: 1.5rem;
-        border-radius: 12px;
-        border: 1px solid #cbd5e1;
-        border-left: 4px solid #0f172a;
-        margin-top: 1.5rem;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    }
-    div[data-testid="stMetric"] {
-        background-color: #ffffff;
-        padding: 1rem 1.25rem;
-        border-radius: 12px;
-        border: 1px solid #e2e8f0;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-    }
-    section[data-testid="stSidebar"] {
-        background-color: #0f172a;
-    }
-    section[data-testid="stSidebar"] .stMarkdown {
-        color: #e2e8f0;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
 # --- SIDEBAR NAVIGATION ---
 st.sidebar.markdown("### **MAREC Insights**")
 st.sidebar.caption("Hospitality Workforce & Revenue Intelligence")
@@ -94,22 +34,11 @@ st.sidebar.info("💡 **Executive Guidance:** Built on the Aurora Mirage manuscr
 # MODULE 1: WORKFORCE & LABOR OPTIMIZATION
 # ==========================================
 if "1. Workforce" in module_selection:
-    st.markdown("""
-        <div class="executive-header">
-            <h1>Module 1: Demand-Driven Housekeeping & Labor Optimization</h1>
-            <p>Calculate precise staffing requirements, HPOR, and labor cost ratios based on real-time property management signals[cite: 8].</p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown("# Module 1: Demand-Driven Housekeeping & Labor Optimization")
+    st.markdown("Calculate precise staffing requirements, HPOR, and labor cost ratios based on real-time property management signals[cite: 8].")
+    st.markdown("---")
 
-    # --- TOP SETUP INSTRUCTION CARD ---
-    st.markdown("""
-        <div class="instruction-card">
-            <h4 style="margin-top:0; color:#0f172a;">📋 Step 1: Input Operational & Payroll Parameters</h4>
-            <p style="color:#334155; margin-bottom:0.75rem;">
-                Adjust the PMS operational inputs and HRIS payroll figures below to simulate your property's housekeeping department performance. Remember that departures drive labor workload, not occupancy alone[cite: 9].
-            </p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.info("📋 **Step 1: Input Operational & Payroll Parameters**\n\nAdjust the PMS operational inputs and HRIS payroll figures below to simulate your property's housekeeping department performance. Remember that departures drive labor workload, not occupancy alone[cite: 9].")
 
     col1, col2 = st.columns(2, gap="large")
 
@@ -131,14 +60,9 @@ if "1. Workforce" in module_selection:
     total_cleaning_minutes = (departures * dep_minutes) + (stayovers * stay_minutes)
     total_cleaning_hours = total_cleaning_minutes / 60.0
     
-    # LPR = (Total Payroll / Total Revenue) * 100[cite: 8]
     total_payroll_cost = payroll_hours * blended_rate
     lpr = (total_payroll_cost / total_rooms_rev) * 100 if total_rooms_rev > 0 else 0
-    
-    # HPOR = Housekeeping Hours / Occupied Rooms[cite: 8]
     hpor = payroll_hours / occupied_rooms if occupied_rooms > 0 else 0
-    
-    # REVPALH = Departmental Revenue / Total Labor Hours[cite: 8]
     revpalh = total_rooms_rev / payroll_hours if payroll_hours > 0 else 0
 
     hour_gap = payroll_hours - total_cleaning_hours
@@ -153,69 +77,49 @@ if "1. Workforce" in module_selection:
     m4.metric("REVPALH", f"${revpalh:.2f}", delta="Benchmark Target: $130.00")
 
     # --- DYNAMIC ACTION DIRECTIVES & INTERPRETATION PROTOCOL ---
+    st.markdown("### **📊 Executive Dashboard Interpretation & Action Protocol**")
+    st.markdown(f"Reviewing your current inputs: **{departures} departures**, **{stayovers} stay-overs**, and **{payroll_hours} payroll hours logged**.")
+
     if hour_gap > 200:
-        gap_status_color = "#991b1b"
-        gap_diagnosis = f"🚨 **Critical Overstaffing / Operational Friction Alert:** You have a massive variance of **{hour_gap:.1f} hours** between calculated net cleaning time ({total_cleaning_hours:.1f} hrs) and actual logged payroll ({payroll_hours} hrs)."
-        gap_actions = """
-            <ul>
-                <li><b>Action 1 (Audit Schedules):</b> Investigate where department hours are pooling (excessive supervisory shifts, unoptimized laundry or houseman staffing, or bloated pre-shift hours).</li>
-                <li><b>Action 2 (Realign with Departures):</b> Transition immediately from static headcounts to demand-driven scheduling. Align shift start times with the departure curve rather than flat occupancy[cite: 10].</li>
-                <li><b>Action 3 (Cross-Departmental Flex):</b> If compression is low, utilize cross-departmental labor sharing or reduce overtime approvals to bring logged hours closer to the engineered standard.</li>
-            </ul>
-        """
+        st.error(f"🚨 **Critical Overstaffing / Operational Friction Alert:** You have a massive variance of **{hour_gap:.1f} hours** between calculated net cleaning time ({total_cleaning_hours:.1f} hrs) and actual logged payroll ({payroll_hours} hrs).")
+        st.markdown("""
+            **Required User Actions:**
+            * **Action 1 (Audit Schedules):** Investigate where department hours are pooling (excessive supervisory shifts, unoptimized laundry or houseman staffing, or bloated pre-shift hours).
+            * **Action 2 (Realign with Departures):** Transition immediately from static headcounts to demand-driven scheduling. Align shift start times with the departure curve rather than flat occupancy[cite: 10].
+            * **Action 3 (Cross-Departmental Flex):** If compression is low, utilize cross-departmental labor sharing or reduce overtime approvals to bring logged hours closer to the engineered standard.
+        """)
     elif hour_gap > 0:
-        gap_status_color = "#b45309"
-        gap_diagnosis = f"⚠️ **Moderate Variance Warning:** Logged payroll hours exceed calculated clean time by **{hour_gap:.1f} hours**. This minor friction accounts for transit, setup, and breaks, but must be monitored."
-        gap_actions = """
-            <ul>
-                <li><b>Action 1:</b> Review room attendant productivity standards (30 mins per departure, 15 mins per stay-over) against actual floor pacing[cite: 11].</li>
-                <li><b>Action 2:</b> Ensure scheduling matches the 7-day weekly labor timeline to prevent midweek overtime spikes[cite: 9, 10].</li>
-            </ul>
-        """
+        st.warning(f"⚠️ **Moderate Variance Warning:** Logged payroll hours exceed calculated clean time by **{hour_gap:.1f} hours**. This friction accounts for setup, transit, and breaks, but should be tightly managed.")
+        st.markdown("""
+            **Required User Actions:**
+            * **Action 1:** Review room attendant productivity standards (30 mins per departure, 15 mins per stay-over) against actual floor pacing[cite: 11].
+            * **Action 2:** Ensure scheduling matches the 7-day weekly labor timeline to prevent midweek overtime spikes[cite: 9, 10].
+        """)
     else:
-        gap_status_color = "#166534"
-        gap_diagnosis = f"✅ **Tight Labor Alignment:** Calculated clean hours ({total_cleaning_hours:.1f} hrs) closely match or exceed logged payroll hours ({payroll_hours} hrs)."
-        gap_actions = """
-            <ul>
-                <li><b>Action 1:</b> Ensure that tight staffing is not sacrificing room quality or guest satisfaction scores. Maintain regular quality audits.</li>
-            </ul>
-        """
+        st.success(f"✅ **Tight Labor Alignment:** Calculated clean hours ({total_cleaning_hours:.1f} hrs) closely match or exceed logged payroll hours ({payroll_hours} hrs).")
+        st.markdown("""
+            **Required User Actions:**
+            * **Action 1:** Ensure that tight staffing is not sacrificing room quality or guest satisfaction scores. Maintain regular quality audits.
+        """)
 
-    hpor_advice = "Your HPOR is above the luxury benchmark target of **2.50 hours**, indicating inefficient room servicing or excess indirect labor[cite: 11]. Reduce non-cleaning hours per shift." if hpor > 2.5 else "Your HPOR is performing at or better than the **2.50 hours** benchmark target[cite: 11]."
-    lpr_advice = f"Your LPR of **{lpr:.1f}%** exceeds the ownership target ceiling of **16.0%**[cite: 11]. Payroll overhead is actively compressing your operating margin." if lpr > 16.0 else f"Your LPR of **{lpr:.1f}%** is within the financial target ceiling of **16.0%**[cite: 11]."
-    revpalh_advice = f"Your REVPALH of **${revpalh:.2f}** is below the **$130.00** benchmark[cite: 11], indicating low revenue productivity per labor hour." if revpalh < 130 else f"Your REVPALH of **${revpalh:.2f}** meets or exceeds the **$130.00** productivity benchmark[cite: 11]."
+    hpor_status = f"**HPOR Evaluation ({hpor:.2f} hrs):** Your HPOR is above the luxury benchmark target of **2.50 hours**, indicating inefficient room servicing or excess indirect labor[cite: 11]. Reduce non-cleaning hours per shift." if hpor > 2.5 else f"**HPOR Evaluation ({hpor:.2f} hrs):** Your HPOR is performing at or better than the **2.50 hours** benchmark target[cite: 11]."
+    lpr_status = f"**LPR Evaluation ({lpr:.1f}%):** Your LPR exceeds the ownership target ceiling of **16.0%**[cite: 11]. Payroll overhead is actively compressing your operating margin." if lpr > 16.0 else f"**LPR Evaluation ({lpr:.1f}%):** Your LPR is within the financial target ceiling of **16.0%**[cite: 11]."
+    revpalh_status = f"**REVPALH Evaluation (${revpalh:.2f}):** Your REVPALH is below the **$130.00** benchmark[cite: 11], indicating low revenue productivity per labor hour." if revpalh < 130 else f"**REVPALH Evaluation (${revpalh:.2f}):** Your REVPALH meets or exceeds the **$130.00** productivity benchmark[cite: 11]."
 
-    st.markdown(f"""
-        <div class="action-card">
-            <h4 style="margin-top:0; color:#0f172a;">📊 Executive Dashboard Interpretation & Action Protocol</h4>
-            <p style="color:#334155; margin-bottom:0.75rem;">
-                Based on your current inputs (<b>{departures} departures</b>, <b>{stayovers} stay-overs</b>, and <b>{payroll_hours} payroll hours</b>), here is your operational diagnosis and required course of action:
-            </p>
-            <div style="background-color:#f8fafc; padding:1rem; border-radius:8px; border:1px solid #e2e8f0; margin-bottom:1rem;">
-                <p style="color:{gap_status_color}; font-weight:600; margin-bottom:0.5rem;">{gap_diagnosis}</p>
-                {gap_actions}
-            </div>
-            <ul style="color:#334155; margin-bottom:1rem;">
-                <li><b>HPOR Evaluation ({hpor:.2f} hrs):</b> {hpor_advice}</li>
-                <li><b>LPR Evaluation ({lpr:.1f}%):</b> {lpr_advice}</li>
-                <li><b>REVPALH Evaluation (${revpalh:.2f}):</b> {revpalh_advice}</li>
-            </ul>
-            <p style="color:#0f172a; font-weight:600; margin-bottom:0;">
-                🎯 <b>Core Executive Decision Rule:</b> Do not schedule based on static occupancy or last month's calendar. Use departure forecasts and time standards to publish dynamic weekly rosters that eliminate unbudgeted overtime before compression hits[cite: 8, 10, 11].
-            </p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown(f"- {hpor_status}")
+    st.markdown(f"- {lpr_status}")
+    st.markdown(f"- {revpalh_status}")
+    
+    st.markdown("---")
+    st.markdown("🎯 **Core Executive Decision Rule:** Do not schedule based on static occupancy or last month's calendar. Use departure forecasts and time standards to publish dynamic weekly rosters that eliminate unbudgeted overtime before compression hits[cite: 8, 10, 11].")
 
 # ==========================================
 # MODULE 2: CHANNEL MIX & NET REVPAR AUDIT
 # ==========================================
 elif "2. Channel" in module_selection:
-    st.markdown("""
-        <div class="executive-header">
-            <h1>Module 2: Channel Mix, Distribution Costs & Net RevPAR</h1>
-            <p>Isolate true bottom-line retention by factoring in OTA and distribution commissions[cite: 17].</p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown("# Module 2: Channel Mix, Distribution Costs & Net RevPAR")
+    st.markdown("Isolate true bottom-line retention by factoring in OTA and distribution commissions[cite: 17].")
+    st.markdown("---")
 
     col1, col2 = st.columns(2, gap="large")
 
@@ -231,7 +135,6 @@ elif "2. Channel" in module_selection:
         st.markdown("#### **Distribution & Channel Costs**")
         total_dist_costs = st.number_input("Total Distribution / Commission Costs ($)", min_value=0.0, value=27000.0, step=500.0)
 
-    # Core Calculations based on Manuscript Formulas
     adr = room_revenue / occupied_rooms_m2 if occupied_rooms_m2 > 0 else 0
     revpar = room_revenue / available_rooms if available_rooms > 0 else 0
     trevpar = (room_revenue + fnb_revenue + ancillary_revenue) / available_rooms if available_rooms > 0 else 0
@@ -254,12 +157,9 @@ elif "2. Channel" in module_selection:
 # MODULE 3: COMPETITIVE INDEXING & SCENARIO MODELING
 # ==========================================
 elif "3. Competitive" in module_selection:
-    st.markdown("""
-        <div class="executive-header">
-            <h1>Module 3: Competitive Set Indexing & Scenario Modeling</h1>
-            <p>Calculate MPI, ARI, RGI, Price Elasticity of Demand (PED), and probability-weighted forecasts[cite: 26, 33].</p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown("# Module 3: Competitive Set Indexing & Scenario Modeling")
+    st.markdown("Calculate MPI, ARI, RGI, Price Elasticity of Demand (PED), and probability-weighted forecasts[cite: 26, 33].")
+    st.markdown("---")
 
     c1, c2 = st.columns(2, gap="large")
     with c1:
@@ -279,7 +179,6 @@ elif "3. Competitive" in module_selection:
         st.text(f"Downside Case Probability (Auto-balanced): {prob_down}%")
         gop_down = st.number_input("Downside Case GOP %", 0.0, 100.0, 26.0)
 
-    # Core Calculations based on Manuscript Formulas
     mpi = (hotel_occ / comp_occ) * 100 if comp_occ > 0 else 0
     ari = (hotel_adr / comp_adr) * 100 if comp_adr > 0 else 0
     hotel_revpar = (hotel_occ / 100.0) * hotel_adr
@@ -300,12 +199,9 @@ elif "3. Competitive" in module_selection:
 # MODULE 4: AI GOVERNANCE & GOPPAR ANALYTICS
 # ==========================================
 elif "4. AI Governance" in module_selection:
-    st.markdown("""
-        <div class="executive-header">
-            <h1>Module 4: AI Governance, Variance Limits & GOPPAR Analytics</h1>
-            <p>Monitor forecast accuracy (MAPE), evaluate profit-per-room (GOPPAR), and enforce human-in-the-loop guardrails[cite: 40].</p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown("# Module 4: AI Governance, Variance Limits & GOPPAR Analytics")
+    st.markdown("Monitor forecast accuracy (MAPE), evaluate profit-per-room (GOPPAR), and enforce human-in-the-loop guardrails[cite: 40].")
+    st.markdown("---")
 
     col1, col2 = st.columns(2, gap="large")
     with col1:
@@ -336,12 +232,9 @@ elif "4. AI Governance" in module_selection:
 # MODULE 5: DEMAND RESILIENCE, DRI & ACR
 # ==========================================
 elif "5. Demand" in module_selection:
-    st.markdown("""
-        <div class="executive-header">
-            <h1>Module 5: Demand Resilience, DRI & ACR</h1>
-            <p>Measure demand recapture without discounting using the Demand Redistribution Index (DRI) and Ancillary Capture Rate (ACR)[cite: 46].</p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown("# Module 5: Demand Resilience, DRI & ACR")
+    st.markdown("Measure demand recapture without discounting using the Demand Redistribution Index (DRI) and Ancillary Capture Rate (ACR)[cite: 46].")
+    st.markdown("---")
 
     col1, col2 = st.columns(2, gap="large")
     with col1:
@@ -368,12 +261,9 @@ elif "5. Demand" in module_selection:
 # MODULE 6: PORTFOLIO SCORECARD & BOARDROOM STRATEGY
 # ==========================================
 elif "6. Portfolio" in module_selection:
-    st.markdown("""
-        <div class="executive-header">
-            <h1>Module 6: Portfolio Scorecard & Boardroom Strategy</h1>
-            <p>Audit multi-property performance using the GOPPAR gap benchmark and evaluate capital projects via ROI and payback[cite: 53, 54].</p>
-        </div>
-    """, unsafe_allow_html=True)
+    st.markdown("# Module 6: Portfolio Scorecard & Boardroom Strategy")
+    st.markdown("Audit multi-property performance using the GOPPAR gap benchmark and evaluate capital projects via ROI and payback[cite: 53, 54].")
+    st.markdown("---")
 
     portfolio_data = pd.DataFrame({
         "Property": ["Aurora Mirage (Las Vegas)", "Property B (Reno)", "Property C (Phoenix)", "Property D (San Diego)"],
