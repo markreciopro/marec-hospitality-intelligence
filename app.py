@@ -127,6 +127,30 @@ if "1. Workforce" in module_selection:
         blended_rate = st.number_input("Blended Hourly Rate ($)", min_value=0.0, value=22.0, step=0.5)
         total_rooms_rev = st.number_input("Total Rooms Revenue ($)", min_value=0.0, value=140000.0, step=1000.0)
 
+    # --- DEEP-DIVE EXPLANATION ACCORDION FOR MODULE 1 INPUTS ---
+    with st.expander("💡 **Understanding the Formulas & Payroll Inputs (Blended Hourly Rate, HPOR, LPR & REVPALH)**"):
+        st.markdown("""
+        ### **1. What is the Blended Hourly Rate?**
+        The **Blended Hourly Rate** represents the weighted average wage of all staff logged under the Housekeeping department for a shift or pay period:
+        
+        $$\\text{Blended Hourly Rate} = \\frac{\\text{Total Departmental Gross Payroll (\\$)}}{\\text{Total Departmental Labor Hours Logged}}$$
+
+        **Example Department Shift Breakdown:**
+        * **18 Guest Room Attendants (GRA):** 144.0 hrs @ $18.50/hr = **$2,664.00**
+        * **4 Housemen / Runners:** 32.0 hrs @ $20.00/hr = **$640.00**
+        * **2 Floor Supervisors:** 16.0 hrs @ $25.00/hr = **$400.00**
+        * **3 Laundry Attendants:** 24.0 hrs @ $19.00/hr = **$456.00**
+        * **Overtime Premium (GRA):** 8.0 hrs @ $27.75/hr (1.5x) = **$222.00**
+        * **Total Shift Payroll:** $4,382.00 ÷ 224.0 Total Hours = **$19.56 / hr Blended Rate**
+
+        ---
+        ### **2. Key Executive Performance Metrics Defined:**
+        * **Engineered Clean Hours:** Direct labor needed for room cleans ($[Departures \\times DepMins] + [Stayovers \\times StayMins] \\div 60$).
+        * **HPOR (Hours Per Occupied Room):** Total departmental hours divided by total occupied rooms ($LoggedHours \\div OccupiedRooms$). Benchmark target is **2.50 hrs/room**.
+        * **LPR (Labor Cost Ratio):** Total departmental payroll cost divided by total room revenue ($[LoggedHours \\times BlendedRate] \\div RoomsRevenue \\times 100$). Target ceiling is **16.0%**.
+        * **REVPALH (Revenue Per Available Labor Hour):** Total rooms revenue generated per labor hour logged ($RoomsRevenue \\div LoggedHours$). Benchmark target is **$130.00/hr**.
+        """)
+
     # Core Calculations
     total_cleaning_minutes = (departures * dep_minutes) + (stayovers * stay_minutes)
     total_cleaning_hours = total_cleaning_minutes / 60.0
@@ -209,6 +233,22 @@ elif "2. Channel" in module_selection:
         st.markdown("#### **Channel Distribution & Commission Inputs**")
         total_dist_costs = st.number_input("Total Distribution / Commission Costs ($)", min_value=0.0, value=27000.0, step=500.0)
 
+    # --- DEEP-DIVE EXPLANATION ACCORDION FOR MODULE 2 INPUTS ---
+    with st.expander("💡 **Understanding Net RevPAR, TRevPAR & Distribution Cost %**"):
+        st.markdown("""
+        ### **1. Why Gross Metrics (ADR / RevPAR) Can Be Misleading:**
+        Top-line room revenue does not account for the commissions paid to Online Travel Agencies (OTAs like Expedia or Booking.com), GDS switch fees, or loyalty transaction costs. High gross revenue can disguise poor profit retention if distribution costs are inflated.
+
+        ### **2. Core Formulas:**
+        * **Net Room Revenue:** $\\text{Gross Room Revenue} - \\text{Total Distribution Costs}$
+        * **Net RevPAR:** $\\frac{\\text{Net Room Revenue}}{\\text{Total Available Rooms}}$
+        * **TRevPAR (Total RevPAR):** $\\frac{\\text{Room Revenue} + \\text{F\\&B Revenue} + \\text{Ancillary Revenue}}{\\text{Total Available Rooms}}$
+        * **Blended Distribution Cost %:** $\\left( \\frac{\\text{Total Distribution Costs}}{\\text{Gross Room Revenue}} \\right) \\times 100$
+
+        ### **3. Operational Example:**
+        If gross room revenue is **$150,000** across **400 rooms** (Gross RevPAR = **$375.00**), but OTA commissions total **$27,000** (18.0% cost), your **Net RevPAR** drops to **$307.50**. Every room night sold through an OTA forfeits **$67.50** in profit before labor and operating costs.
+        """)
+
     adr = room_revenue / occupied_rooms_m2 if occupied_rooms_m2 > 0 else 0
     revpar = room_revenue / available_rooms if available_rooms > 0 else 0
     trevpar = (room_revenue + fnb_revenue + ancillary_revenue) / available_rooms if available_rooms > 0 else 0
@@ -279,6 +319,22 @@ elif "3. Competitive" in module_selection:
         st.caption(f"Downside Case Probability (Auto-balanced): **{prob_down}%**")
         gop_down = st.number_input("Downside Case GOP %", 0.0, 100.0, 26.0)
 
+    # --- DEEP-DIVE EXPLANATION ACCORDION FOR MODULE 3 INPUTS ---
+    with st.expander("💡 **Understanding Market Share Indices (MPI, ARI, RGI) & Expected Value**"):
+        st.markdown("""
+        ### **1. Market Penetration Indices Explained:**
+        Market penetration measures your property's performance relative to your competitive set (STR benchmark). A index score of **100.0** represents your exact fair share.
+
+        * **MPI (Market Penetration Index / Occupancy Share):** $\\left( \\frac{\\text{Property Occupancy}}{\\text{Comp-Set Occupancy}} \\right) \\times 100$
+        * **ARI (Average Rate Index / Rate Leadership):** $\\left( \\frac{\\text{Property ADR}}{\\text{Comp-Set ADR}} \\right) \\times 100$
+        * **RGI (Revenue Generation Index / RevPAR Share):** $\\left( \\frac{\\text{Property RevPAR}}{\\text{Comp-Set RevPAR}} \\right) \\times 100 = \\frac{\\text{MPI} \\times \\text{ARI}}{100}$
+
+        ### **2. Probability-Weighted Expected GOP Formula:**
+        Rather than relying on a single static budget, scenario modeling calculates an expected value ($E[V]$) across multiple economic conditions:
+
+        $$E[\\text{GOP \\%}] = (P_{\\text{Best}} \\times \\text{GOP}_{\\text{Best}}) + (P_{\\text{Base}} \\times \\text{GOP}_{\\text{Base}}) + (P_{\\text{Down}} \\times \\text{GOP}_{\\text{Down}})$$
+        """)
+
     mpi = (hotel_occ / comp_occ) * 100 if comp_occ > 0 else 0
     ari = (hotel_adr / comp_adr) * 100 if comp_adr > 0 else 0
     hotel_revpar = (hotel_occ / 100.0) * hotel_adr
@@ -337,6 +393,22 @@ elif "4. AI Governance" in module_selection:
         forecast_demand = st.number_input("Model Forecasted Occupied Rooms", min_value=1, value=350)
         variance_limit_pct = st.number_input("Configured Governance Limit (%)", min_value=0.0, value=8.0, step=0.5)
 
+    # --- DEEP-DIVE EXPLANATION ACCORDION FOR MODULE 4 INPUTS ---
+    with st.expander("💡 **Understanding GOPPAR & AI Algorithmic Governance Limits**"):
+        st.markdown("""
+        ### **1. GOPPAR (Gross Operating Profit Per Available Room):**
+        While RevPAR tracks revenue, **GOPPAR** evaluates true operational profitability by dividing gross profit by available capacity:
+
+        $$\\text{GOPPAR} = \\frac{\\text{Gross Operating Profit (GOP)}}{\\text{Total Available Rooms}}$$
+
+        ### **2. AI Governance & Human-in-the-Loop Thresholds:**
+        Automated revenue management systems (RMS) suggest dynamic price adjustments based on demand predictions. However, unmonitored pricing algorithms can lead to runaway discounting or overpricing.
+
+        * **Absolute Forecast Error (MAPE %):** $\\left( \\frac{|\\text{Actual Demand} - \\text{Forecast Demand}|}{\\text{Actual Demand}} \\right) \\times 100$
+        * **Proposed Algorithmic Move:** Price shift magnitude recommended by AI (scaled against forecast variance).
+        * **Governance Action:** If proposed rate shift exceeds your **Governance Limit (e.g., 8.0%)**, the action is **ESCALATED TO HUMAN** for manual sign-off before hitting public distribution channels.
+        """)
+
     goppar = gross_op_profit / total_avail_rooms_m4 if total_avail_rooms_m4 > 0 else 0
     abs_error_pct = (abs(actual_demand - forecast_demand) / actual_demand) * 100 if actual_demand > 0 else 0
     proposed_move_pct = abs_error_pct * 1.5
@@ -390,6 +462,22 @@ elif "5. Demand" in module_selection:
         fnb_spa_rev = st.number_input("F&B + Spa + Ancillary Revenue ($)", min_value=0.0, value=460000.0, step=5000.0)
         total_prop_rev = st.number_input("Total Property Revenue ($)", min_value=0.0, value=2150000.0, step=10000.0)
 
+    # --- DEEP-DIVE EXPLANATION ACCORDION FOR MODULE 5 INPUTS ---
+    with st.expander("💡 **Understanding Demand Redistribution (DRI) & Ancillary Capture Rate (ACR)**"):
+        st.markdown("""
+        ### **1. Demand Redistribution Index (DRI):**
+        When a key demand segment softens (e.g., corporate group cancellations), discounting room rates often erodes brand equity without stimulating new volume. **DRI** measures your ability to offset volume loss by pivoting sales efforts to alternate segments (e.g., leisure drive-in or wedding blocks):
+
+        $$\\text{DRI (\\%)} = \\left( \\frac{\\text{Room-Nights Recaptured in Alternate Segments}}{\\text{Room-Nights Lost in Primary Segment}} \\right) \\times 100$$
+
+        * **Target Benchmark:** $>60.0\\%$ recapture rate indicates strong commercial agility.
+
+        ### **2. Ancillary Capture Rate (ACR):**
+        High-resilience properties maximize guest wallet share across non-room outlets (F&B, Spa, Golf, Gaming, Resort Fees):
+
+        $$\\text{ACR (\\%)} = \\left( \\frac{\\text{F\\&B + Spa + Ancillary Revenue}}{\\text{Total Property Revenue}} \\right) \\times 100$$
+        """)
+
     dri = (rooms_recaptured / rooms_lost) * 100 if rooms_lost > 0 else 0
     acr = (fnb_spa_rev / total_prop_rev) * 100 if total_prop_rev > 0 else 0
 
@@ -436,6 +524,23 @@ elif "6. Portfolio" in module_selection:
         "Achievable GOPPAR ($)": [150.0, 138.0, 135.0, 158.0]
     })
     portfolio_data["GOPPAR Gap ($)"] = portfolio_data["Actual GOPPAR ($)"] - portfolio_data["Achievable GOPPAR ($)"]
+
+    # --- DEEP-DIVE EXPLANATION ACCORDION FOR MODULE 6 INPUTS ---
+    with st.expander("💡 **Understanding Portfolio GOPPAR Gaps & Capital Prioritization**"):
+        st.markdown("""
+        ### **1. GOPPAR Gap Benchmark:**
+        The **GOPPAR Gap** compares each property's current realized profit against its full asset potential under optimal labor scheduling and channel mix:
+
+        $$\\text{GOPPAR Gap (\\$)} = \\text{Actual GOPPAR} - \\text{Achievable Target GOPPAR}$$
+
+        * Properties with negative gaps represent priority focus areas for operational turnaround.
+
+        ### **2. Capital Project Prioritization (ROI vs. Payback):**
+        When allocating CapEx across portfolio properties, evaluate both 3-Year ROI and payback velocity:
+
+        * **Payback Period (Years):** $\\frac{\\text{Initial Capital Expenditure}}{\\text{Annual Net Cash Flow Generation}}$
+        * **Strategic Guidance:** Rapid payback investments (e.g., automated PMS integrations and direct-booking engine upgrades under 1.5 yrs payback) generate quick liquidity to fund longer-term asset expansions.
+        """)
 
     st.markdown("#### **Cross-Property Portfolio GOPPAR Gap Analysis**")
     st.dataframe(portfolio_data, use_container_width=True)
