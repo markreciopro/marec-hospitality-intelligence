@@ -4,7 +4,7 @@ import plotly.express as px
 
 # --- PAGE CONFIGURATION & EXECUTIVE THEME ---
 st.set_page_config(
-    page_title="MAREC Insights | Hospitality Workforce & Revenue Intelligence",
+    page_title="MAREC Insights | CHRM Mastery & Revenue Intelligence",
     page_icon="🏨",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -42,15 +42,15 @@ st.markdown("""
         margin-bottom: 0 !important;
     }
     
-    /* Styled Action & Insight Cards */
+    /* Protocol and Formula Cards */
     .protocol-card {
         background-color: #ffffff;
         padding: 1.75rem;
         border-radius: 14px;
         border: 1px solid #e2e8f0;
         border-left: 5px solid #2563eb;
-        margin-top: 1.5rem;
-        margin-bottom: 1.5rem;
+        margin-top: 1.25rem;
+        margin-bottom: 1.25rem;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
     }
     
@@ -80,76 +80,205 @@ st.markdown("""
 
 # --- SIDEBAR NAVIGATION ---
 st.sidebar.markdown("## 🏨 **MAREC Insights**")
-st.sidebar.caption("Hospitality Workforce & Commercial Intelligence Platform")
+st.sidebar.caption("CHRM Prep & Commercial Intelligence Engine")
 st.sidebar.markdown("---")
 
 module_selection = st.sidebar.selectbox(
-    "Choose Executive Tool",
+    "Choose Module / Exam Tool",
     [
-        "1. Workforce & Labor Optimization (Module 1)",
-        "2. Channel Mix & Net RevPAR Audit (Module 2)",
-        "3. Competitive Indexing & Scenario Modeling (Module 3)",
-        "4. AI Governance & GOPPAR Analytics (Module 4)",
-        "5. Demand Resilience, DRI & ACR (Module 5)",
-        "6. Portfolio Scorecard & Boardroom Strategy (Module 6)"
+        "0. CHRM Exam Prep & Core Formulas",
+        "1. Group Displacement & Transient Cutoff (CHRM Ch. 3 & 7)",
+        "2. Workforce & Labor Optimization (CHRM Ch. 2)",
+        "3. Channel Mix, Merchant/Wholesale & Net RevPAR (CHRM Ch. 3 & 8)",
+        "4. STR Indexing (MPI, ARI, RGI) & Scenario Modeling (CHRM Ch. 6)",
+        "5. GOPPAR, Flow-Through & AI Governance (CHRM Ch. 4 & 5)",
+        "6. Demand Resilience & Portfolio Strategy (CHRM Ch. 7 & 8)"
     ]
 )
 
 st.sidebar.markdown("---")
-st.sidebar.caption("⚡ Operating Model: Aurora Mirage Resort Executive Framework")
+st.sidebar.caption("🎓 **Certified Hospitality Revenue Manager (AHLEI)**")
+st.sidebar.caption("⚡ Operating Sandbox: Aurora Mirage Resort Executive Model")
 
 # ==========================================
-# MODULE 1: WORKFORCE & LABOR OPTIMIZATION
+# MODULE 0: CHRM EXAM PREP & CORE FORMULAS
 # ==========================================
-if "1. Workforce" in module_selection:
+if "0. CHRM Exam Prep" in module_selection:
     st.markdown("""
         <div class="executive-banner">
-            <h1>Module 1: Demand-Driven Housekeeping & Labor Optimization</h1>
-            <p>Calculate precise staffing requirements, HPOR, and labor cost ratios directly from property management signals.</p>
+            <h1>Module 0: AHLEI CHRM Exam Mastery Center</h1>
+            <p>Review core AHLEI formulas, key revenue management principles, and interactive test prep flashcards.</p>
         </div>
     """, unsafe_allow_html=True)
 
-    st.info("📋 **Step 1: Operational Demand & Payroll Setup**\n\nEnter today's PMS room turn numbers and total payroll hours below. Departures drive room attendant workload and scheduling requirements, not occupancy alone.")
+    st.markdown("### 📚 **Core CHRM Formulas Reference Cheat-Sheet**")
+    
+    f1, f2, f3 = st.columns(3)
+    with f1:
+        st.markdown("""
+        <div class="protocol-card">
+            <h4><b>1. Basic Key Metrics</b></h4>
+            <ul>
+                <li><b>Occupancy %:</b> <code>(Rooms Occupied ÷ Rooms Available) × 100</code></li>
+                <li><b>ADR:</b> <code>Total Room Revenue ÷ Rooms Sold</code></li>
+                <li><b>RevPAR:</b> <code>Room Revenue ÷ Total Available Rooms</code> OR <code>Occupancy % × ADR</code></li>
+                <li><b>TRevPAR:</b> <code>(Room Rev + F&B Rev + Ancillary Rev) ÷ Available Rooms</code></li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with f2:
+        st.markdown("""
+        <div class="protocol-card">
+            <h4><b>2. STR Penetration Indices</b></h4>
+            <ul>
+                <li><b>MPI (Occupancy Share):</b> <code>(Property Occupancy ÷ Comp Set Occupancy) × 100</code></li>
+                <li><b>ARI (Rate Index):</b> <code>(Property ADR ÷ Comp Set ADR) × 100</code></li>
+                <li><b>RGI (RevPAR Share):</b> <code>(Property RevPAR ÷ Comp Set RevPAR) × 100</code> OR <code>(MPI × ARI) ÷ 100</code></li>
+                <li><i>Note: 100.0 is Fair Market Share.</i></li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+
+    with f3:
+        st.markdown("""
+        <div class="protocol-card">
+            <h4><b>3. Financial & Yield Calculations</b></h4>
+            <ul>
+                <li><b>GOPPAR:</b> <code>Gross Operating Profit ÷ Total Available Rooms</code></li>
+                <li><b>Net RevPAR:</b> <code>(Gross Room Rev - Distribution Costs) ÷ Available Rooms</code></li>
+                <li><b>HPOR:</b> <code>Housekeeping Labor Hours ÷ Occupied Rooms</code></li>
+                <li><b>LPR:</b> <code>(Department Payroll $ ÷ Rooms Revenue) × 100</code></li>
+            </ul>
+        </div>
+        """, unsafe_allow_html=True)
+
+    st.markdown("---")
+    st.markdown("### 📝 **AHLEI CHRM Practice Questions & Key Concepts**")
+
+    q1, q2 = st.columns(2)
+    with q1:
+        with st.expander("❓ **Q1: What is displacement analysis used for?**"):
+            st.write("""
+            **Answer:** Displacement analysis determines whether accepting a group block at a discounted rate generates more total net profit than the transient business that would be turned away (displaced) as a result.
+            """)
+        with st.expander("❓ **Q2: Explain the difference between Merchant and Wholesaler distribution models.**"):
+            st.write("""
+            **Answer:** 
+            * **Merchant Model (Markup):** OTA buys rooms at a net rate discounted by 20–30% and marks them up before selling to consumers.
+            * **Wholesaler Model:** Hotel sets the selling price and pays a fixed commission percentage or fixed fee to the intermediary.
+            """)
+        with st.expander("❓ **Q3: What does an RGI score of 108.5 indicate on an STR report?**"):
+            st.write("""
+            **Answer:** The property is outperforming its competitive set by **8.5%** in RevPAR (yielding 8.5% above its fair market share).
+            """)
+
+    with q2:
+        with st.expander("❓ **Q4: What is the difference between constrained and unconstrained demand?**"):
+            st.write("""
+            **Answer:** 
+            * **Unconstrained Demand:** Total potential demand for a hotel regardless of capacity limitations.
+            * **Constrained Demand:** Actual demand capped by the physical number of available rooms in the hotel.
+            """)
+        with st.expander("❓ **Q5: What are Opaque booking sites?**"):
+            st.write("""
+            **Answer:** Websites (like Priceline or Hotwire) where hotel brand details are hidden until payment is completed, shielding public rate integrity while clearing distressed inventory.
+            """)
+        with st.expander("❓ **Q6: Why is RevPAR alone sometimes misleading?**"):
+            st.write("""
+            **Answer:** RevPAR ignores distribution commissions, acquisition costs, non-room revenues (F&B/Spa), and operating labor expenses. Metrics like Net RevPAR, TRevPAR, and GOPPAR provide a complete profit picture.
+            """)
+
+# ==========================================
+# MODULE 1: GROUP DISPLACEMENT & TRANSIENT CUTOFF
+# ==========================================
+elif "1. Group Displacement" in module_selection:
+    st.markdown("""
+        <div class="executive-banner">
+            <h1>Module 1: Group Displacement Analysis & Wash Down (AHLEI Ch. 3 & 7)</h1>
+            <p>Calculate whether to accept a group block by evaluating displaced transient revenue and non-room profit contribution.</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+    st.info("📋 **CHRM Core Concept:** Displacement analysis evaluates whether accepting group business generates higher net profitability than retaining transient room inventory.")
 
     col1, col2 = st.columns(2, gap="large")
+    with col1:
+        st.markdown("#### **Proposed Group Contract Parameters**")
+        group_rooms = st.number_input("Group Rooms Requested (per night)", min_value=1, value=50)
+        group_rate = st.number_input("Offered Group Room Rate ($)", min_value=0.0, value=140.0, step=5.0)
+        group_fnb_profit = st.number_input("Expected Group F&B / Banquet Net Profit ($)", min_value=0.0, value=3500.0, step=250.0)
+        wash_rate_pct = st.number_input("Historical Group Wash Rate (%)", min_value=0.0, max_value=50.0, value=10.0, step=2.5)
 
+    with col2:
+        st.markdown("#### **Displaced Transient Demand Parameters**")
+        displaced_transient_rooms = st.number_input("Transient Rooms Displaced (per night)", min_value=0, value=45)
+        transient_adr = st.number_input("Forecasted Transient ADR ($)", min_value=0.0, value=195.0, step=5.0)
+        transient_fnb_profit_per_room = st.number_input("Average Transient Non-Room Profit per Room ($)", min_value=0.0, value=25.0, step=2.5)
+
+    # Wash calculation
+    effective_group_rooms = group_rooms * (1.0 - (wash_rate_pct / 100.0))
+    group_room_rev = effective_group_rooms * group_rate
+    total_group_profit = group_room_rev + group_fnb_profit
+
+    transient_room_rev_lost = displaced_transient_rooms * transient_adr
+    transient_fnb_profit_lost = displaced_transient_rooms * transient_fnb_profit_per_room
+    total_transient_profit_lost = transient_room_rev_lost + transient_fnb_profit_lost
+
+    net_displacement_gain = total_group_profit - total_transient_profit_lost
+
+    st.markdown("---")
+    st.markdown("### **Displacement Analysis Summary**")
+
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric("Effective Group Rooms (Post-Wash)", f"{effective_group_rooms:.0f} rooms", delta=f"{wash_rate_pct}% Wash Applied")
+    m2.metric("Total Group Revenue Contribution", f"${total_group_profit:,.2f}", delta=f"F&B Profit: ${group_fnb_profit:,.2f}")
+    m3.metric("Displaced Transient Profit Lost", f"${total_transient_profit_lost:,.2f}", delta=f"Transient Rooms: {displaced_transient_rooms}", delta_color="inverse")
+    m4.metric("Net Financial Impact", f"${net_displacement_gain:,.2f}", delta="ACCEPT GROUP" if net_displacement_gain >= 0 else "REJECT GROUP", delta_color="normal" if net_displacement_gain >= 0 else "inverse")
+
+    df_disp = pd.DataFrame({
+        "Revenue Stream": ["Total Group Contribution", "Displaced Transient Revenue Lost", "Net Gain / (Loss)"],
+        "Amount ($)": [total_group_profit, total_transient_profit_lost, net_displacement_gain]
+    })
+    fig_disp = px.bar(
+        df_disp, x="Revenue Stream", y="Amount ($)", color="Revenue Stream",
+        color_discrete_map={"Total Group Contribution": "#10B981", "Displaced Transient Revenue Lost": "#EF4444", "Net Gain / (Loss)": "#3B82F6" if net_displacement_gain >= 0 else "#DC2626"},
+        title="<b>Group vs. Transient Displacement Financial Comparison</b>",
+        text_auto=',.2f'
+    )
+    fig_disp.update_layout(template="plotly_white", showlegend=False, height=350)
+    st.plotly_chart(fig_disp, use_container_width=True)
+
+    if net_displacement_gain >= 0:
+        st.success(f"✅ **CHRM Decision Recommendation: ACCEPT CONTRACT.** Accepting this group block produces a net positive gain of **${net_displacement_gain:,.2f}** compared to transient forecasts.")
+    else:
+        st.error(f"🚨 **CHRM Decision Recommendation: REJECT OR RENEGOTIATE.** Accepting this block results in a net profit loss of **${abs(net_displacement_gain):,.2f}**. Negotiate a higher group rate or demand minimum F&B spend.")
+
+# ==========================================
+# MODULE 2: WORKFORCE & LABOR OPTIMIZATION
+# ==========================================
+elif "2. Workforce" in module_selection:
+    st.markdown("""
+        <div class="executive-banner">
+            <h1>Module 2: Housekeeping & Labor Cost Optimization (AHLEI Ch. 2)</h1>
+            <p>Calculate engineered cleaning hours, HPOR, and labor cost ratios directly from PMS shift demand.</p>
+        </div>
+    """, unsafe_allow_html=True)
+
+    col1, col2 = st.columns(2, gap="large")
     with col1:
         st.markdown("#### **Operational Demand Signals (PMS)**")
-        departures = st.number_input("Departures / Full Cleans (30 min standard)", min_value=0, value=280, step=10)
+        departures = st.number_input("Departures / Full Cleans", min_value=0, value=280, step=10)
         dep_minutes = st.number_input("Minutes per Departure Clean", min_value=0.0, value=30.0, step=2.5)
-        stayovers = st.number_input("Stay-overs / Light Cleans (15 min standard)", min_value=0, value=120, step=10)
+        stayovers = st.number_input("Stay-overs / Light Cleans", min_value=0, value=120, step=10)
         stay_minutes = st.number_input("Minutes per Stay-over Clean", min_value=0.0, value=15.0, step=1.0)
         occupied_rooms = st.number_input("Total Occupied Rooms (PMS)", min_value=1, value=361, step=5)
 
     with col2:
-        st.markdown("#### **Financial & Payroll Signals (HRIS / LMS)**")
+        st.markdown("#### **Financial & Payroll Signals**")
         payroll_hours = st.number_input("Total Housekeeping Payroll Hours Logged", min_value=0.0, value=1300.0, step=10.0)
         blended_rate = st.number_input("Blended Hourly Rate ($)", min_value=0.0, value=22.0, step=0.5)
         total_rooms_rev = st.number_input("Total Rooms Revenue ($)", min_value=0.0, value=140000.0, step=1000.0)
-
-    # --- DEEP-DIVE EXPLANATION ACCORDION FOR MODULE 1 INPUTS ---
-    with st.expander("💡 **Understanding the Formulas & Payroll Inputs (Blended Hourly Rate, HPOR, LPR & REVPALH)**"):
-        st.markdown("""
-        ### **1. What is the Blended Hourly Rate?**
-        The **Blended Hourly Rate** represents the weighted average wage of all staff logged under the Housekeeping department for a shift or pay period:
-        
-        $$\\text{Blended Hourly Rate} = \\frac{\\text{Total Departmental Gross Payroll (\\$)}}{\\text{Total Departmental Labor Hours Logged}}$$
-
-        **Example Department Shift Breakdown:**
-        * **18 Guest Room Attendants (GRA):** 144.0 hrs @ $18.50/hr = **$2,664.00**
-        * **4 Housemen / Runners:** 32.0 hrs @ $20.00/hr = **$640.00**
-        * **2 Floor Supervisors:** 16.0 hrs @ $25.00/hr = **$400.00**
-        * **3 Laundry Attendants:** 24.0 hrs @ $19.00/hr = **$456.00**
-        * **Overtime Premium (GRA):** 8.0 hrs @ $27.75/hr (1.5x) = **$222.00**
-        * **Total Shift Payroll:** $4,382.00 ÷ 224.0 Total Hours = **$19.56 / hr Blended Rate**
-
-        ---
-        ### **2. Key Executive Performance Metrics Defined:**
-        * **Engineered Clean Hours:** Direct labor needed for room cleans ($[Departures \\times DepMins] + [Stayovers \\times StayMins] \\div 60$).
-        * **HPOR (Hours Per Occupied Room):** Total departmental hours divided by total occupied rooms ($LoggedHours \\div OccupiedRooms$). Benchmark target is **2.50 hrs/room**.
-        * **LPR (Labor Cost Ratio):** Total departmental payroll cost divided by total room revenue ($[LoggedHours \\times BlendedRate] \\div RoomsRevenue \\times 100$). Target ceiling is **16.0%**.
-        * **REVPALH (Revenue Per Available Labor Hour):** Total rooms revenue generated per labor hour logged ($RoomsRevenue \\div LoggedHours$). Benchmark target is **$130.00/hr**.
-        """)
 
     # Core Calculations
     total_cleaning_minutes = (departures * dep_minutes) + (stayovers * stay_minutes)
@@ -161,15 +290,14 @@ if "1. Workforce" in module_selection:
     hour_gap = payroll_hours - total_cleaning_hours
 
     st.markdown("---")
-    st.markdown("### **Executive Workforce Performance Metrics**")
-    
-    m1, m2, m3, m4 = st.columns(4)
-    m1.metric("Engineered Clean Hours", f"{total_cleaning_hours:.1f} hrs", delta=f"Actual Logged: {payroll_hours} hrs", delta_color="inverse" if hour_gap > 0 else "normal")
-    m2.metric("HPOR (Hours / Occ. Room)", f"{hpor:.2f} hrs", delta="Benchmark Target: 2.50 hrs", delta_color="inverse" if hpor > 2.5 else "normal")
-    m3.metric("LPR (Labor Cost Ratio)", f"{lpr:.1f}%", delta="Target Ceiling: 16.0%", delta_color="inverse" if lpr > 16.0 else "normal")
-    m4.metric("REVPALH", f"${revpalh:.2f}", delta="Benchmark Target: $130.00", delta_color="normal" if revpalh >= 130 else "inverse")
+    st.markdown("### **Housekeeping Efficiency & Labor Metrics**")
 
-    # High-Impact Visual Chart
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric("Engineered Clean Hours", f"{total_cleaning_hours:.1f} hrs", delta=f"Logged: {payroll_hours} hrs", delta_color="inverse" if hour_gap > 0 else "normal")
+    m2.metric("HPOR (Hours / Occ. Room)", f"{hpor:.2f} hrs", delta="Target: 2.50 hrs", delta_color="inverse" if hpor > 2.5 else "normal")
+    m3.metric("LPR (Labor Cost Ratio)", f"{lpr:.1f}%", delta="Ceiling Target: 16.0%", delta_color="inverse" if lpr > 16.0 else "normal")
+    m4.metric("REVPALH", f"${revpalh:.2f}", delta="Target: $130.00", delta_color="normal" if revpalh >= 130 else "inverse")
+
     df_m1 = pd.DataFrame({
         "Labor Metric": ["Engineered Cleaning Hours", "Logged Payroll Hours"],
         "Hours": [total_cleaning_hours, payroll_hours]
@@ -183,41 +311,14 @@ if "1. Workforce" in module_selection:
     fig_m1.update_layout(template="plotly_white", showlegend=False, height=350)
     st.plotly_chart(fig_m1, use_container_width=True)
 
-    # Dynamic Interpretation & Action Directives
-    st.markdown("### **📊 Dynamic Action Recommendations & Operational Protocol**")
-    if hour_gap > 200:
-        st.error(f"🚨 **Critical Labor Overhead Alert:** Logged payroll exceeds calculated room cleaning time by **{hour_gap:.1f} hours**. Overhead, supervisory pools, or overtime are eroding department profitability.")
-        st.markdown("""
-            **Executive Action Plan:**
-            1. **Audit Supervisory & Support Hours:** Review floor supervisor shift overlays and houseman staging hours.
-            2. **Publish Departure-Driven Roster:** Shift room attendant start times to mirror checkout waves rather than flat 8:00 AM clock-ins.
-            3. **Restrict Unbudgeted Overtime:** Freeze non-essential overtime approvals and deploy cross-departmental labor sharing.
-        """)
-    elif hour_gap > 0:
-        st.warning(f"⚠️ **Moderate Labor Variance:** Logged payroll exceeds engineered cleaning time by **{hour_gap:.1f} hours**.")
-        st.markdown("""
-            **Executive Action Plan:**
-            1. **Monitor Room Attendant Pacing:** Validate actual floor room cleans against standards (30 mins departure / 15 mins stay-over).
-            2. **Align Mid-Week Scheduling:** Adjust staffing schedules to smooth out midweek checkout peaks.
-        """)
-    else:
-        st.success(f"✅ **Optimal Labor Efficiency:** Logged payroll hours ({payroll_hours} hrs) are fully aligned with engineered cleaning workload ({total_cleaning_hours:.1f} hrs).")
-        st.markdown("""
-            **Executive Action Plan:**
-            1. **Maintain Quality Control:** Perform spot checks on cleaned rooms to ensure speed does not degrade cleanliness scores.
-        """)
-
-    st.markdown("---")
-    st.markdown("💡 **Core Decision Directive:** Base housekeeping shift schedules on predicted PMS departure curves rather than overall occupancy or historical calendars.")
-
 # ==========================================
-# MODULE 2: CHANNEL MIX & NET REVPAR AUDIT
+# MODULE 3: CHANNEL MIX, MERCHANT/WHOLESALE & NET REVPAR
 # ==========================================
-elif "2. Channel" in module_selection:
+elif "3. Channel" in module_selection:
     st.markdown("""
         <div class="executive-banner">
-            <h1>Module 2: Channel Mix, Distribution Costs & Net RevPAR</h1>
-            <p>Isolate true revenue retention by factoring OTA commissions, GDS fees, and channel distribution costs.</p>
+            <h1>Module 3: Channel Mix, Distribution Costs & Net RevPAR (AHLEI Ch. 3 & 8)</h1>
+            <p>Examine distribution model costs (Merchant vs. Wholesaler), GDS fees, and true Net RevPAR yield.</p>
         </div>
     """, unsafe_allow_html=True)
 
@@ -229,26 +330,14 @@ elif "2. Channel" in module_selection:
         room_revenue = st.number_input("Gross Room Revenue ($)", min_value=0.0, value=150000.0, step=1000.0)
         fnb_revenue = st.number_input("F&B Revenue ($)", min_value=0.0, value=40000.0, step=1000.0)
         ancillary_revenue = st.number_input("Ancillary Revenue ($)", min_value=0.0, value=10000.0, step=500.0)
+
     with col2:
-        st.markdown("#### **Channel Distribution & Commission Inputs**")
-        total_dist_costs = st.number_input("Total Distribution / Commission Costs ($)", min_value=0.0, value=27000.0, step=500.0)
+        st.markdown("#### **Distribution & Commission Cost Inputs**")
+        ota_commissions = st.number_input("OTA / Merchant Commissions ($)", min_value=0.0, value=18000.0, step=500.0)
+        gds_crs_fees = st.number_input("GDS / CRS Switch Fees ($)", min_value=0.0, value=6000.0, step=250.0)
+        travel_agent_commissions = st.number_input("Travel Agent Commissions ($)", min_value=0.0, value=3000.0, step=250.0)
 
-    # --- DEEP-DIVE EXPLANATION ACCORDION FOR MODULE 2 INPUTS ---
-    with st.expander("💡 **Understanding Net RevPAR, TRevPAR & Distribution Cost %**"):
-        st.markdown("""
-        ### **1. Why Gross Metrics (ADR / RevPAR) Can Be Misleading:**
-        Top-line room revenue does not account for the commissions paid to Online Travel Agencies (OTAs like Expedia or Booking.com), GDS switch fees, or loyalty transaction costs. High gross revenue can disguise poor profit retention if distribution costs are inflated.
-
-        ### **2. Core Formulas:**
-        * **Net Room Revenue:** $\\text{Gross Room Revenue} - \\text{Total Distribution Costs}$
-        * **Net RevPAR:** $\\frac{\\text{Net Room Revenue}}{\\text{Total Available Rooms}}$
-        * **TRevPAR (Total RevPAR):** $\\frac{\\text{Room Revenue} + \\text{F\\&B Revenue} + \\text{Ancillary Revenue}}{\\text{Total Available Rooms}}$
-        * **Blended Distribution Cost %:** $\\left( \\frac{\\text{Total Distribution Costs}}{\\text{Gross Room Revenue}} \\right) \\times 100$
-
-        ### **3. Operational Example:**
-        If gross room revenue is **$150,000** across **400 rooms** (Gross RevPAR = **$375.00**), but OTA commissions total **$27,000** (18.0% cost), your **Net RevPAR** drops to **$307.50**. Every room night sold through an OTA forfeits **$67.50** in profit before labor and operating costs.
-        """)
-
+    total_dist_costs = ota_commissions + gds_crs_fees + travel_agent_commissions
     adr = room_revenue / occupied_rooms_m2 if occupied_rooms_m2 > 0 else 0
     revpar = room_revenue / available_rooms if available_rooms > 0 else 0
     trevpar = (room_revenue + fnb_revenue + ancillary_revenue) / available_rooms if available_rooms > 0 else 0
@@ -258,7 +347,7 @@ elif "2. Channel" in module_selection:
     blended_dist_pct = (total_dist_costs / room_revenue) * 100 if room_revenue > 0 else 0
 
     st.markdown("---")
-    st.markdown("### **Executive Commercial Performance Metrics**")
+    st.markdown("### **Commercial Yield & Distribution Metrics**")
 
     r1, r2, r3, r4, r5 = st.columns(5)
     r1.metric("Gross ADR", f"${adr:.2f}")
@@ -280,25 +369,14 @@ elif "2. Channel" in module_selection:
     fig_m2.update_layout(template="plotly_white", showlegend=False, height=350)
     st.plotly_chart(fig_m2, use_container_width=True)
 
-    st.markdown("### **📊 Executive Channel Strategy Action Protocol**")
-    if blended_dist_pct > 15.0:
-        st.warning(f"⚠️ **High Acquisition Cost Warning:** Distribution costs are consuming **{blended_dist_pct:.1f}%** of gross room revenue. Net RevPAR retention is diluted by **${(revpar - net_revpar):.2f} per available room**.")
-        st.markdown("""
-            **Recommended Actions:**
-            * **Shift OTA Demand:** Implement restricted rate parity or exclusive loyalty add-ons (e.g., resort credits) on direct web channels.
-            * **Audit Channel Margins:** Re-evaluate high-commission OTA market growth packages during peak demand dates.
-        """)
-    else:
-        st.success(f"✅ **Healthy Distribution Efficiency:** Blended distribution cost ({blended_dist_pct:.1f}%) is performing within optimal retention targets.")
-
 # ==========================================
-# MODULE 3: COMPETITIVE INDEXING & SCENARIO MODELING
+# MODULE 4: STR INDEXING & SCENARIO MODELING
 # ==========================================
-elif "3. Competitive" in module_selection:
+elif "4. STR Indexing" in module_selection:
     st.markdown("""
         <div class="executive-banner">
-            <h1>Module 3: Competitive Set Indexing & Scenario Modeling</h1>
-            <p>Calculate MPI, ARI, RGI, and build probability-weighted commercial forecasts.</p>
+            <h1>Module 4: Competitive Set Indexing & Forecast Modeling (AHLEI Ch. 6)</h1>
+            <p>Calculate MPI, ARI, RGI penetration indices against STR competitive benchmarks.</p>
         </div>
     """, unsafe_allow_html=True)
 
@@ -309,6 +387,7 @@ elif "3. Competitive" in module_selection:
         comp_occ = st.number_input("Comp-Set Average Occupancy (%)", 0.0, 100.0, 74.0)
         hotel_adr = st.number_input("Property ADR ($)", 0.0, 1000.0, 428.57)
         comp_adr = st.number_input("Comp-Set Average ADR ($)", 0.0, 1000.0, 412.00)
+
     with c2:
         st.markdown("#### **Probability-Weighted GOP Forecast**")
         prob_best = st.slider("Best Case Probability (%)", 0, 100, 25)
@@ -319,22 +398,6 @@ elif "3. Competitive" in module_selection:
         st.caption(f"Downside Case Probability (Auto-balanced): **{prob_down}%**")
         gop_down = st.number_input("Downside Case GOP %", 0.0, 100.0, 26.0)
 
-    # --- DEEP-DIVE EXPLANATION ACCORDION FOR MODULE 3 INPUTS ---
-    with st.expander("💡 **Understanding Market Share Indices (MPI, ARI, RGI) & Expected Value**"):
-        st.markdown("""
-        ### **1. Market Penetration Indices Explained:**
-        Market penetration measures your property's performance relative to your competitive set (STR benchmark). A index score of **100.0** represents your exact fair share.
-
-        * **MPI (Market Penetration Index / Occupancy Share):** $\\left( \\frac{\\text{Property Occupancy}}{\\text{Comp-Set Occupancy}} \\right) \\times 100$
-        * **ARI (Average Rate Index / Rate Leadership):** $\\left( \\frac{\\text{Property ADR}}{\\text{Comp-Set ADR}} \\right) \\times 100$
-        * **RGI (Revenue Generation Index / RevPAR Share):** $\\left( \\frac{\\text{Property RevPAR}}{\\text{Comp-Set RevPAR}} \\right) \\times 100 = \\frac{\\text{MPI} \\times \\text{ARI}}{100}$
-
-        ### **2. Probability-Weighted Expected GOP Formula:**
-        Rather than relying on a single static budget, scenario modeling calculates an expected value ($E[V]$) across multiple economic conditions:
-
-        $$E[\\text{GOP \\%}] = (P_{\\text{Best}} \\times \\text{GOP}_{\\text{Best}}) + (P_{\\text{Base}} \\times \\text{GOP}_{\\text{Base}}) + (P_{\\text{Down}} \\times \\text{GOP}_{\\text{Down}})$$
-        """)
-
     mpi = (hotel_occ / comp_occ) * 100 if comp_occ > 0 else 0
     ari = (hotel_adr / comp_adr) * 100 if comp_adr > 0 else 0
     hotel_revpar = (hotel_occ / 100.0) * hotel_adr
@@ -343,12 +406,12 @@ elif "3. Competitive" in module_selection:
     weighted_gop = ((prob_best / 100.0) * gop_best) + ((prob_base / 100.0) * gop_base) + ((prob_down / 100.0) * gop_down)
 
     st.markdown("---")
-    st.markdown("### **Market Penetration & Forecast Summary**")
+    st.markdown("### **Competitive Penetration Summary**")
 
     i1, i2, i3, i4 = st.columns(4)
-    i1.metric("MPI (Occupancy Index)", f"{mpi:.1f}", delta="Fair Share = 100")
-    i2.metric("ARI (Rate Index)", f"{ari:.1f}", delta="Fair Share = 100")
-    i3.metric("RGI (RevPAR Index)", f"{rgi:.1f}", delta="Fair Share = 100", delta_color="normal" if rgi >= 100 else "inverse")
+    i1.metric("MPI (Occupancy Share)", f"{mpi:.1f}", delta="Fair Share = 100")
+    i2.metric("ARI (Rate Leadership)", f"{ari:.1f}", delta="Fair Share = 100")
+    i3.metric("RGI (RevPAR Share)", f"{rgi:.1f}", delta="Fair Share = 100", delta_color="normal" if rgi >= 100 else "inverse")
     i4.metric("Weighted GOP Forecast", f"{weighted_gop:.2f}%")
 
     df_m3 = pd.DataFrame({
@@ -358,163 +421,64 @@ elif "3. Competitive" in module_selection:
     fig_m3 = px.bar(
         df_m3, x="Index Metric", y="Index Score", color="Index Metric",
         color_discrete_sequence=["#3B82F6", "#10B981", "#1E3A8A"],
-        title="<b>Competitive Penetration Benchmarks (Fair Share = 100.0)</b>",
+        title="<b>STR Penetration Index Performance (Fair Market Share = 100.0)</b>",
         text_auto='.1f'
     )
-    fig_m3.add_hline(y=100, line_dash="dash", line_color="#EF4444", annotation_text="Fair Share Target (100.0)")
+    fig_m3.add_hline(y=100, line_dash="dash", line_color="#EF4444", annotation_text="Fair Share Benchmark (100.0)")
     fig_m3.update_layout(template="plotly_white", showlegend=False, height=350)
     st.plotly_chart(fig_m3, use_container_width=True)
 
-    st.markdown("### **📊 Market Share Strategy Recommendations**")
-    if rgi < 100.0:
-        st.warning(f"⚠️ **RevPAR Underpenetration:** Property RGI of **{rgi:.1f}** is below fair market share. {'Occupancy index (MPI) is lagging.' if mpi < 100 else 'Rate index (ARI) is underperforming.'}")
-    else:
-        st.success(f"✅ **Market Leadership:** RGI of **{rgi:.1f}** indicates your property is generating above its fair share of revenue.")
-
 # ==========================================
-# MODULE 4: AI GOVERNANCE & GOPPAR ANALYTICS
+# MODULE 5: GOPPAR, FLOW-THROUGH & AI GOVERNANCE
 # ==========================================
-elif "4. AI Governance" in module_selection:
+elif "5. GOPPAR" in module_selection:
     st.markdown("""
         <div class="executive-banner">
-            <h1>Module 4: AI Governance, Variance Limits & GOPPAR Analytics</h1>
-            <p>Monitor forecast accuracy (MAPE), evaluate profit-per-room (GOPPAR), and enforce automated guardrails.</p>
+            <h1>Module 5: GOPPAR, Flow-Through & AI Governance (AHLEI Ch. 4 & 5)</h1>
+            <p>Evaluate gross operating profit per room, flow-through percentage, and automated pricing governance limits.</p>
         </div>
     """, unsafe_allow_html=True)
 
     col1, col2 = st.columns(2, gap="large")
     with col1:
-        st.markdown("#### **Profitability & GOP Inputs**")
+        st.markdown("#### **Profitability & Flow-Through Inputs**")
         gross_op_profit = st.number_input("Gross Operating Profit (GOP) ($)", min_value=0.0, value=59200.0, step=1000.0)
         total_avail_rooms_m4 = st.number_input("Total Available Rooms (Monthly)", min_value=1, value=400)
+        prior_gop = st.number_input("Prior Period GOP ($)", min_value=0.0, value=48000.0, step=1000.0)
+        curr_revenue = st.number_input("Current Period Revenue ($)", min_value=0.0, value=150000.0, step=5000.0)
+        prior_revenue = st.number_input("Prior Period Revenue ($)", min_value=0.0, value=125000.0, step=5000.0)
+
     with col2:
         st.markdown("#### **AI Algorithmic Audit Inputs**")
         actual_demand = st.number_input("Actual Occupied Rooms Realized", min_value=1, value=361)
         forecast_demand = st.number_input("Model Forecasted Occupied Rooms", min_value=1, value=350)
         variance_limit_pct = st.number_input("Configured Governance Limit (%)", min_value=0.0, value=8.0, step=0.5)
 
-    # --- DEEP-DIVE EXPLANATION ACCORDION FOR MODULE 4 INPUTS ---
-    with st.expander("💡 **Understanding GOPPAR & AI Algorithmic Governance Limits**"):
-        st.markdown("""
-        ### **1. GOPPAR (Gross Operating Profit Per Available Room):**
-        While RevPAR tracks revenue, **GOPPAR** evaluates true operational profitability by dividing gross profit by available capacity:
-
-        $$\\text{GOPPAR} = \\frac{\\text{Gross Operating Profit (GOP)}}{\\text{Total Available Rooms}}$$
-
-        ### **2. AI Governance & Human-in-the-Loop Thresholds:**
-        Automated revenue management systems (RMS) suggest dynamic price adjustments based on demand predictions. However, unmonitored pricing algorithms can lead to runaway discounting or overpricing.
-
-        * **Absolute Forecast Error (MAPE %):** $\\left( \\frac{|\\text{Actual Demand} - \\text{Forecast Demand}|}{\\text{Actual Demand}} \\right) \\times 100$
-        * **Proposed Algorithmic Move:** Price shift magnitude recommended by AI (scaled against forecast variance).
-        * **Governance Action:** If proposed rate shift exceeds your **Governance Limit (e.g., 8.0%)**, the action is **ESCALATED TO HUMAN** for manual sign-off before hitting public distribution channels.
-        """)
-
     goppar = gross_op_profit / total_avail_rooms_m4 if total_avail_rooms_m4 > 0 else 0
+    rev_change = curr_revenue - prior_revenue
+    gop_change = gross_op_profit - prior_gop
+    flow_through = (gop_change / rev_change) * 100 if rev_change != 0 else 0
+
     abs_error_pct = (abs(actual_demand - forecast_demand) / actual_demand) * 100 if actual_demand > 0 else 0
     proposed_move_pct = abs_error_pct * 1.5
 
     st.markdown("---")
-    st.markdown("### **Governance & Profitability Dashboard**")
+    st.markdown("### **Profitability & Algorithmic Governance Metrics**")
 
     g1, g2, g3, g4 = st.columns(4)
     g1.metric("GOPPAR", f"${goppar:.2f}", delta="Profit / Avail Room")
-    g2.metric("Forecast Error (MAPE)", f"{abs_error_pct:.2f}%", delta="Target < 3.0%")
-    g3.metric("Proposed Rate Move", f"{proposed_move_pct:.1f}%", delta=f"Limit: {variance_limit_pct}%")
+    g2.metric("Flow-Through %", f"{flow_through:.1f}%", delta="Target: 50-60%")
+    g3.metric("Forecast Error (MAPE)", f"{abs_error_pct:.2f}%", delta="Target < 3.0%")
     g4.metric("Governance Action", "ESCALATE TO HUMAN" if proposed_move_pct > variance_limit_pct else "AUTO-EXECUTE", delta_color="inverse" if proposed_move_pct > variance_limit_pct else "normal")
 
-    df_m4 = pd.DataFrame({
-        "Category": ["Actual Occupied Rooms", "AI Model Forecast"],
-        "Rooms": [actual_demand, forecast_demand]
-    })
-    fig_m4 = px.bar(
-        df_m4, x="Category", y="Rooms", color="Category",
-        color_discrete_sequence=["#10B981", "#3B82F6"],
-        title="<b>AI Model Demand Forecast vs. Realized Room Sales</b>",
-        text_auto=True
-    )
-    fig_m4.update_layout(template="plotly_white", showlegend=False, height=350)
-    st.plotly_chart(fig_m4, use_container_width=True)
-
-    st.markdown("### **📊 Governance Protocol Directives**")
-    if proposed_move_pct > variance_limit_pct:
-        st.error(f"🚨 **Guardrail Triggered (Escalation Required):** The proposed rate move of **{proposed_move_pct:.1f}%** exceeds the maximum automated threshold of **{variance_limit_pct}%**. Requires manual sign-off by Revenue Director before publishing.")
-    else:
-        st.success("✅ **Governance Clear:** Forecast variance is within parameters. System authorized to auto-publish rate recommendations.")
-
 # ==========================================
-# MODULE 5: DEMAND RESILIENCE, DRI & ACR
+# MODULE 6: DEMAND RESILIENCE & PORTFOLIO STRATEGY
 # ==========================================
-elif "5. Demand" in module_selection:
+elif "6. Demand" in module_selection:
     st.markdown("""
         <div class="executive-banner">
-            <h1>Module 5: Demand Resilience, DRI & ACR</h1>
-            <p>Track demand recapture across guest segments without blanket discounting using DRI and Ancillary Capture Rate.</p>
-        </div>
-    """, unsafe_allow_html=True)
-
-    col1, col2 = st.columns(2, gap="large")
-    with col1:
-        st.markdown("#### **Demand Redistribution Inputs**")
-        rooms_lost = st.number_input("Room-Nights Lost (Softened Segment)", min_value=1, value=340)
-        rooms_recaptured = st.number_input("Room-Nights Recaptured (Alternate Segment)", min_value=0, value=207)
-    with col2:
-        st.markdown("#### **Ancillary Revenue Wallet Share**")
-        fnb_spa_rev = st.number_input("F&B + Spa + Ancillary Revenue ($)", min_value=0.0, value=460000.0, step=5000.0)
-        total_prop_rev = st.number_input("Total Property Revenue ($)", min_value=0.0, value=2150000.0, step=10000.0)
-
-    # --- DEEP-DIVE EXPLANATION ACCORDION FOR MODULE 5 INPUTS ---
-    with st.expander("💡 **Understanding Demand Redistribution (DRI) & Ancillary Capture Rate (ACR)**"):
-        st.markdown("""
-        ### **1. Demand Redistribution Index (DRI):**
-        When a key demand segment softens (e.g., corporate group cancellations), discounting room rates often erodes brand equity without stimulating new volume. **DRI** measures your ability to offset volume loss by pivoting sales efforts to alternate segments (e.g., leisure drive-in or wedding blocks):
-
-        $$\\text{DRI (\\%)} = \\left( \\frac{\\text{Room-Nights Recaptured in Alternate Segments}}{\\text{Room-Nights Lost in Primary Segment}} \\right) \\times 100$$
-
-        * **Target Benchmark:** $>60.0\\%$ recapture rate indicates strong commercial agility.
-
-        ### **2. Ancillary Capture Rate (ACR):**
-        High-resilience properties maximize guest wallet share across non-room outlets (F&B, Spa, Golf, Gaming, Resort Fees):
-
-        $$\\text{ACR (\\%)} = \\left( \\frac{\\text{F\\&B + Spa + Ancillary Revenue}}{\\text{Total Property Revenue}} \\right) \\times 100$$
-        """)
-
-    dri = (rooms_recaptured / rooms_lost) * 100 if rooms_lost > 0 else 0
-    acr = (fnb_spa_rev / total_prop_rev) * 100 if total_prop_rev > 0 else 0
-
-    st.markdown("---")
-    st.markdown("### **Resilience & Wallet Share Metrics**")
-
-    d1, d2 = st.columns(2)
-    d1.metric("DRI (Demand Redistribution Index)", f"{dri:.1f}%", delta="Recapture Benchmark > 60.0%")
-    d2.metric("ACR (Ancillary Capture Rate)", f"{acr:.1f}%", delta="Total Wallet Share Yield")
-
-    df_m5 = pd.DataFrame({
-        "Resilience Benchmark": ["DRI (Demand Recapture %)", "ACR (Ancillary Contribution %)"],
-        "Percentage": [dri, acr]
-    })
-    fig_m5 = px.bar(
-        df_m5, x="Resilience Benchmark", y="Percentage", color="Resilience Benchmark",
-        color_discrete_sequence=["#10B981", "#3B82F6"],
-        title="<b>Resilience Indices: Demand Recapture vs. Non-Room Yield</b>",
-        text_auto='.1f'
-    )
-    fig_m5.update_layout(template="plotly_white", showlegend=False, height=350)
-    st.plotly_chart(fig_m5, use_container_width=True)
-
-    st.markdown("### **📊 Resilience Strategy Directives**")
-    if dri < 60.0:
-        st.warning(f"⚠️ **Recapture Gap:** DRI is **{dri:.1f}%** (target > 60.0%). Boost targeted promotional efforts in secondary segments (e.g., regional drive-in markets) rather than un-fencing primary rates.")
-    else:
-        st.success("✅ **Strong Resilience:** Demand recapture mechanisms are buffering transient volume fluctuations.")
-
-# ==========================================
-# MODULE 6: PORTFOLIO SCORECARD & BOARDROOM STRATEGY
-# ==========================================
-elif "6. Portfolio" in module_selection:
-    st.markdown("""
-        <div class="executive-banner">
-            <h1>Module 6: Portfolio Scorecard & Boardroom Strategy</h1>
-            <p>Audit multi-property yield using GOPPAR gap analysis and evaluate capital expenditure projects via 3-Year ROI.</p>
+            <h1>Module 6: Demand Resilience & Boardroom Strategy (AHLEI Ch. 7 & 8)</h1>
+            <p>Analyze segment demand redistribution (DRI) and multi-property GOPPAR portfolio gaps.</p>
         </div>
     """, unsafe_allow_html=True)
 
@@ -524,23 +488,6 @@ elif "6. Portfolio" in module_selection:
         "Achievable GOPPAR ($)": [150.0, 138.0, 135.0, 158.0]
     })
     portfolio_data["GOPPAR Gap ($)"] = portfolio_data["Actual GOPPAR ($)"] - portfolio_data["Achievable GOPPAR ($)"]
-
-    # --- DEEP-DIVE EXPLANATION ACCORDION FOR MODULE 6 INPUTS ---
-    with st.expander("💡 **Understanding Portfolio GOPPAR Gaps & Capital Prioritization**"):
-        st.markdown("""
-        ### **1. GOPPAR Gap Benchmark:**
-        The **GOPPAR Gap** compares each property's current realized profit against its full asset potential under optimal labor scheduling and channel mix:
-
-        $$\\text{GOPPAR Gap (\\$)} = \\text{Actual GOPPAR} - \\text{Achievable Target GOPPAR}$$
-
-        * Properties with negative gaps represent priority focus areas for operational turnaround.
-
-        ### **2. Capital Project Prioritization (ROI vs. Payback):**
-        When allocating CapEx across portfolio properties, evaluate both 3-Year ROI and payback velocity:
-
-        * **Payback Period (Years):** $\\frac{\\text{Initial Capital Expenditure}}{\\text{Annual Net Cash Flow Generation}}$
-        * **Strategic Guidance:** Rapid payback investments (e.g., automated PMS integrations and direct-booking engine upgrades under 1.5 yrs payback) generate quick liquidity to fund longer-term asset expansions.
-        """)
 
     st.markdown("#### **Cross-Property Portfolio GOPPAR Gap Analysis**")
     st.dataframe(portfolio_data, use_container_width=True)
@@ -571,5 +518,5 @@ elif "6. Portfolio" in module_selection:
     fig_m6_2.update_layout(template="plotly_white", height=380)
     st.plotly_chart(fig_m6_2, use_container_width=True)
 
-    st.markdown("### **📊 Boardroom Capital Directives**")
-    st.info("💡 **Resource Allocation Strategy:** Prioritize capital deployments to projects with payback periods under 2.0 years (PMS Upgrades and Direct Booking Engines) to accelerate portfolio cash flow.")
+    st.markdown("### **📊 Boardroom Strategic Directives**")
+    st.success("✅ **Portfolio Execution Directive:** Focus capital deployment toward Property B (Reno) to close its GOPPAR gap and fast-track high-ROI technology upgrades (PMS & Direct-Booking Engine) showing sub-1.5 year payback periods.")
